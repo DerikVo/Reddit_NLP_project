@@ -30,7 +30,7 @@ For data collection we used the push shift API to pull data from the [r/AskWomen
 |Ask Women| 1997|2995|998|
 
 ### Data Dictioanry
-The follow is a data dictionary for the [clean combined subredit data](../Data/02_sub_reddit_data_clean.csv)
+The follow is a data dictionary for the [clean combined subredit data](./Data/02_sub_reddit_data_clean.csv)
 |Feature |Type | Description|
 |-----|-----|------|
 |id|object|the unique identifier of the post|
@@ -60,16 +60,16 @@ The goal of the project was to build a classifier to categorize the titles of po
 
 ### Methodology
 
-1) [Gathered data points from both subreddits](../Code/01_data_collecting.ipynb)
+1) [Gathered data points from both subreddits](./Code/01_data_collecting.ipynb)
     1) ) Returned to data collection after EDA process and modeling process
         1) ) First iteration had too many removed post (70% of 2000~ of post)
         2) ) Second iteration brought the proportion down to about 50%~
         3) ) Subreddits were too similar, so we pulled more data, but had no improvement
-2) [Cleaned, explored, and created features initial data](../Data/Code/02_data_cleaning.ipynb)
+2) [Cleaned, explored, and created features initial data](./Data/Code/02_data_cleaning.ipynb)
     1) ) Findings
         1) ) Found a large amount of post in the first iteration had been removed about 70% of 2000~ post
-        2) ) returned to the [data collection notebook](../Code/01_data_collecting.ipynb) to get more data
-        3) ) [Created histograms](../Figures/eda) and found the distribution of each feature was about the same between each subreddit
+        2) ) returned to the [data collection notebook](./Code/01_data_collecting.ipynb) to get more data
+        3) ) [Created histograms](./Figures/eda) and found the distribution of each feature was about the same between each subreddit
     2) ) Feature engineering
         2) ) Created a sentiment analysis feature on the title to see sentiment of each subreddit
         3) ) Created a day_name features to see what day a post was created
@@ -77,7 +77,7 @@ The goal of the project was to build a classifier to categorize the titles of po
     3) ) Cleaning
         1) ) Dropped duplicates
         2) ) Filtered out all non English and numeric characters with .isascii()
-3) ) [Modeling](../Code/03_modeling.ipynb)
+3) ) [Modeling](./Code/03_modeling.ipynb)
     1) Created two models
         1) ) Random Forest Classifier
         2) ) Logistic Regression
@@ -87,7 +87,7 @@ The goal of the project was to build a classifier to categorize the titles of po
     3) Evaluated the models
         1) ) Checked the accuracy
         2) ) Checked the recall score
-        3) ) Checked the [confusion matrix](../Figures/confusion_matrix) of each model and transformer
+        3) ) Checked the [confusion matrix](./Figures/confusion_matrix) of each model and transformer
 ### Results
 |Model|Transformer|Scored|Recall|
 |----|-----|-----|-------|
