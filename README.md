@@ -21,9 +21,9 @@ Derk Vo
 
 The subreddits [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) are two very popular subreddits. These subreddits offer a place for individuals to ask questions and share experiences with one another. The goal of this project is to be able to accurately classify what characteristics can identify which subreddit a post belongs to based on its title. This can hopefully be used by gender, social, or other researchers to identify trends or patterns.
 
-If we are successful then the information can be used to identify characteristics of each subreddit to better understand the intricacies of social interactions between men and women. If we are able to build an accurate model then we will them proceed with analyzing comments within each post. Then when we build a satisfactory model, we can use sentiment analysis to label these titles and comments for research purposes. With this we can help researchers in the social sciences better understand how social media and community effects individuals and communities.
+If we are successful then the information can be used to identify characteristics of each subreddit to better understand the intricacies of social interactions between men and women. If we are able to build an accurate model then we will them proceed with analyzing comments within each post. Then when we build a satisfactory model, we can use sentiment analysis to label these titles and comments for research purposes. With this we can help researchers in the social sciences better understand how social media and community effects individuals and communities. Additionally, by having a better understanding of these communities we can help site moderation and administration efforts. With our understanding of key features of manually removed post we can help automate that process, and with our sentiment analysis we can help foster a more inviting environment.
 
-Within this project we will be using a Logistic regression and a random forest with a countvectorizer and TfidfVectorizer transformer to process and model our data.
+Within this project we will be using a Logistic regression and a random forest with a Countvectorizer and TfidfVectorizer transformer to process and model our data. We will build a base model with just the titles and if we get satisfactory performance then we will add sentiment analysis or any other features. We will arbitrarily set the benchmark at 75%. The decision tree was selected in conjunction with a logistic regression because of their resistance to outliers. We also wanted to have to compare a single learner to an ensamble to see if changes in transformers have a significant effect.
 
 
 ### Data_Collection
@@ -95,9 +95,11 @@ We will evaluate these models by measuring the confusion matrix matrix of recall
     1) Created two models
         1) ) Random Forest Classifier
         2) ) Logistic Regression
+        3) ) A grid search was use to optimize hyper parameters
     2) Used two transformers on each model
-        1) ) countvectorizer
+        1) )Countvectorizer
         2) )TfidfVectorizer
+        3) )A grid search was use to optimize hyper parameters
     3) Evaluated the models
         1) ) Checked the accuracy
         2) ) Checked the recall score
