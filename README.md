@@ -2,14 +2,21 @@
 Derk Vo
 
 ## Table of contents
-[Problem statement](##Problem_statement)
-[Data Collection](##Data_Collection)
-[Data Dictionary](##Data_Dictionary)
-[Executive summary](##Executive_summary)
-[Problem statement](##Problem_statement)
-[Conclusion](##Conclusion  )
-[Recommendations](##Recommendations)
-[Limitations](##Limitations)
+[Problem statement](#Problem_statement)
+
+[Data Collection](#Data_Collection)
+
+[Data Dictionary](#Data_Dictionary)
+
+[Executive summary](#Executive_summary)
+
+[Problem statement](#Problem_statement)
+
+[Conclusion](#Conclusion  )
+
+[Recommendations](#Recommendations)
+
+[Limitations](#Limitations)
 
 
 ## Problem statement
