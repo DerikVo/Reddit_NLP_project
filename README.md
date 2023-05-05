@@ -1,196 +1,121 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 3: Web APIs & NLP
+# Project 3: Web APIs & NLP
+Derk Vo
 
-### Description
+## Problem statement
 
-In week four we've learned about a few different classifiers. In week five we learned about webscraping, APIs, and Natural Language Processing (NLP). This project will put those skills to the test.
+The subreddits [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) are two very popular subreddits. These subreddits offer a place for individuals to ask questions and share experiences with one another. The goal of this project is to be able to accurately classify what characteristics can identify which subreddit a post belongs to based on its title. This can hopefully be used by gender, social, or other researchers to identify trends or patterns.
 
-For project 3, your goal is two-fold:
-1. Using [Pushshift's](https://github.com/pushshift/api) API or [PRAW](https://praw.readthedocs.io/en/stable/), you'll collect posts from two subreddits of your choosing.
-2. You'll then use NLP to train a classifier on which subreddit a given post came from. This is a binary classification problem.
+If we are successful then the information can be used to identify characteristics of each subreddit to better understand the intricacies of social interactions between men and women. If we are able to build an accurate model then we will them proceed with analyzing comments within each post.
+
+Within this project we will be using a Logistic regression and a random forest with a countvectorizer and TfidfVectorizer transformer to process and model our data.
 
 
-### About the PushShift API
-PushShift collects Reddit data, stores it, and makes it available through an API.  This allows anyone to access current and historical posts, comments, etc.  
+## Data Collection
+For data collection we used the push shift API to pull data from the [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) sub reddits. Be low is the amount of data pulled for each subreddit on when.
 
-Pushshift's API is fairly straightforward. For example, if I want the posts from [`/r/boardgames`](https://www.reddit.com/r/boardgames), all I have to do is use the following url: https://api.pushshift.io/reddit/search/submission?subreddit=boardgames
+|Date(YYYY-MM-DD)|Records|
+|-----|-----|
+|2023-04-24|3992|
+|2023-04-30|2001|
+|2023-05-04|1998|
 
-To help you get started, we have a primer video on how to use the API: https://youtu.be/AcrjEWsMi_E
+|subreddit |iteration 1 | iteration 2| Iteration 3|
+|-----|-----|------|-------|
+|Ask men| 1995| 2997| 1000 |
+|Ask Women| 1997|2995|998|
 
-**NOTE:** Pushshift has recently gone through a major update.  Many of the parameter names have changed.  Current parameters can be viewed [here](https://api.pushshift.io/docs#/default/search_reddit_posts_reddit_search_submission_get).  Also, Pushshift now limits you to 1000 posts per request (no longer the 500 in the screencast).
-
-### About PRAW
-
-PRAW is a Python wrapper for the Reddit API.  The Reddit API has more functionality than PushShift; and therefore, is a little less straightforward.  It requires that you have created a user account on Reddit, and an app with a client ID and secret.  More information on getting started [here](https://praw.readthedocs.io/en/stable/getting_started/quick_start.html).  
-
-One drawback of PRAW is that it only allows collection of up to around 1000 posts from any given subreddit stream:  
-- controversial
-- gilded
-- hot
-- new
-- rising
-- top  
-
+### Data Dictioanry
+The follow is a data dictionary for the [clean combined subredit data](./Data/02_sub_reddit_data_clean.csv)
+|Feature |Type | Description|
+|-----|-----|------|
+|id|object|the unique identifier of the post|
+|subreddit| object| The subreddit the post belongs to|
+|Title| object|The title of the post|
+|utc_datetime_str| object|The timestamp the post was created in human readable format|
+|num_comments| int64|the number of comments in the thread|
+|day_name | object|the day the post was created|
+|title_word_count| int64|The number of words in the title|
+|negative_score| float64|The negative sentiment analysis score|
+|neutral_score| float64|The neutral sentiment analysis score|
+|positive_score| float64|The positive sentiment analysis score|
+|compound_score| float64|The compound sentiment analysis score|
+|removed_by_category| object|How a post was removed e.g. moderator|
+|is_removed| int64|A 0/1 bool to see if a post was removed|
+_________________________________
 In order to gather enough data for modeling, you will likely need to use a very active subreddit and pull data from multiple streams over several days.
 
 ---
 
-## Checkpoints and Advice
+## Executive summary
 
-If you aren't familiar with [reddit](https://www.reddit.com/), go check it out and browse different subreddits. Each subreddit is like a forum on a different topic. [Here's a list of subreddits by topic.](https://www.reddit.com/r/ListOfSubreddits/wiki/listofsubreddits)
-
-- In your project you can classify posts, comments, titles, or some combination of those things. What you choose will partly determine how difficult your data cleaning will be and how challenging the classification task will be for your algorithms. In your presentation and executive summary, **tell us what you used**.
-- You can also include other information from posts or comments as features, but you must include some text.
-- You can make the project more challenging by choosing subreddits that are more similar.
-- **By the EOD Friday, 4/21/2023, please input your chosen subreddits into [this google form.](https://forms.gle/Z6Mu9PzCgtJo4NTi7)**
-- You should aim to have a function built to pull down data from the API by this date (4/21/23) as well.
-- The more data you can pull the better for your classifier. **You will want data from at least 3000 unique, non-null posts from each subreddit.**
-
----
-
-### Requirements
-
-- Gather and prepare your data using the `requests` library and PushShift API, or PRAW.
-- **Create and compare two models**. Any two classifiers at least of your choosing: random forest, logistic regression, KNN, etc.
-- A Jupyter Notebook with your analysis for a peer audience of data scientists.
-- An executive summary of your results.
-- A short presentation (**8 minutes maximum**) outlining your process and findings for a semi-technical audience.
-
-**Pro Tip:** You can find a good example executive summary [here](https://www.proposify.biz/blog/executive-summary).
-
----
-
-### Necessary Deliverables / Submission
-
-- Code must be in at least one clearly commented Jupyter Notebook.
-- A readme/executive summary in markdown.
-- You must submit your slide deck as a PDF.
-- Materials must be submitted by **9:30 AM (PT) on Friday, May 5th**.
-
----
-
-## Rubric
-Your instructors will evaluate your project (for the most part) using the following criteria.  You should make sure that you consider and/or follow most if not all of the considerations/recommendations outlined below **while** working through your project.
-
-For Project 3 the evaluation categories are as follows:<br>
-**The Data Science Process**
-- Problem Statement
-- Data Collection
-- Data Cleaning & EDA
-- Preprocessing & Modeling
-- Evaluation and Conceptual Understanding
-- Conclusion and Recommendations
-
-**Organization and Professionalism**
-- Organization
-- Visualizations
-- Python Syntax and Control Flow
-- Presentation
-
-**Scores will be out of 30 points based on the 10 categories in the rubric.** <br>
-*3 points per section*<br>
-
-| Score | Interpretation |
-| --- | --- |
-| **0** | *Project fails to meet the minimum requirements for this item.* |
-| **1** | *Project meets the minimum requirements for this item, but falls significantly short of portfolio-ready expectations.* |
-| **2** | *Project exceeds the minimum requirements for this item, but falls short of portfolio-ready expectations.* |
-| **3** | *Project meets or exceeds portfolio-ready expectations; demonstrates a thorough understanding of every outlined consideration.* |
+### Objective:
 
 
-### The Data Science Process
+The goal of the project was to build a classifier to categorize the titles of post in [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/). We aggregated a total of 7,990 records post using the Push shift API and used the classification models Random forest classifier and Logistic regression, and used the transformers Countvectorizer and TfidfVectorizer.
 
-**Problem Statement**
-- Is it clear what the goal of the project is?
-- What type of model will be developed?
-- How will success be evaluated?
-- Is the scope of the project appropriate?
-- Is it clear who cares about this or why this is important to investigate?
-- Does the student consider the audience and the primary and secondary stakeholders?
+We will evaluate these models by measuring the confusion matrix matrix of recall score, f1 score, precision score, and accuracy.
 
-**Data Collection**
-- Was enough data gathered to generate a significant result?
-- Was data collected that was useful and relevant to the project?
-- Was data collection and storage optimized through custom functions, pipelines, and/or automation?
-- Was thought given to the server receiving the requests such as considering number of requests per second?
+### Methodology
 
-**Data Cleaning and EDA**
-- Are missing values imputed/handled appropriately?
-- Are distributions examined and described?
-- Are outliers identified and addressed?
-- Are appropriate summary statistics provided?
-- Are steps taken during data cleaning and EDA framed appropriately?
-- Does the student address whether or not they are likely to be able to answer their problem statement with the provided data given what they've discovered during EDA?
-
-**Preprocessing and Modeling**
-- Is text data successfully converted to a matrix representation?
-- Are methods such as stop words, stemming, and lemmatization explored?
-- Does the student properly split and/or sample the data for validation/training purposes?
-- Does the student test and evaluate a variety of models to identify a production algorithm (**AT MINIMUM:** two models)?
-- Does the student defend their choice of production model relevant to the data at hand and the problem?
-- Does the student explain how the model works and evaluate its performance successes/downfalls?
-
-**Evaluation and Conceptual Understanding**
-- Does the student accurately identify and explain the baseline score?
-- Does the student select and use metrics relevant to the problem objective?
-- Does the student interpret the results of their model for purposes of inference?
-- Is domain knowledge demonstrated when interpreting results?
-- Does the student provide appropriate interpretation with regards to descriptive and inferential statistics?
-
-**Conclusion and Recommendations**
-- Does the student provide appropriate context to connect individual steps back to the overall project?
-- Is it clear how the final recommendations were reached?
-- Are the conclusions/recommendations clearly stated?
-- Does the conclusion answer the original problem statement?
-- Does the student address how findings of this research can be applied for the benefit of stakeholders?
-- Are future steps to move the project forward identified?
+1) [Gathered data points from both subreddits](./Code/01_data_collecting.ipynb)
+    1) ) Returned to data collection after EDA process and modeling process
+        1) ) First iteration had too many removed post (70% of 2000~ of post)
+        2) ) Second iteration brought the proportion down to about 50%~
+        3) ) Subreddits were too similar, so we pulled more data, but had no improvement
+2) [Cleaned, explored, and created features initial data](./Data/Code/02_data_cleaning.ipynb)
+    1) ) Findings
+        1) ) Found a large amount of post in the first iteration had been removed about 70% of 2000~ post
+        2) ) returned to the [data collection notebook](./Code/01_data_collecting.ipynb) to get more data
+        3) ) [Created histograms](./Figures/eda) and found the distribution of each feature was about the same between each subreddit
+    2) ) Feature engineering
+        2) ) Created a sentiment analysis feature on the title to see sentiment of each subreddit
+        3) ) Created a day_name features to see what day a post was created
+        4) ) created a is_removed feature to identify post that have been removed
+    3) ) Cleaning
+        1) ) Dropped duplicates
+        2) ) Filtered out all non English and numeric characters with .isascii()
+3) ) [Modeling](./Code/03_modeling.ipynb)
+    1) Created two models
+        1) ) Random Forest Classifier
+        2) ) Logistic Regression
+    2) Used two transformers on each model
+        1) ) countvectorizer
+        2) )TfidfVectorizer
+    3) Evaluated the models
+        1) ) Checked the accuracy
+        2) ) Checked the recall score
+        3) ) Checked the [confusion matrix](./Figures/confusion_matrix) of each model and transformer
+### Results
+|Model|Transformer|Recall| F1 | Precision score| Accuracy |
+|----|-----|-----|-------|------|--------|
+|Random Forest|CountVectorizer|.69|.68|.69|.69|
+|Logistic Regression|CountVectorizer|.66|.66|.66|.66|
+|Random Forest|TFIDF Vectorizer|.67|.67|.67|.67|
+|Logistic Regression|CountVectorizer|.66|.66|.67|.66|
 
 
-### Organization and Professionalism
+Each of our models had similar results according to our confusion matrix scores. Our models are only slightly better than our baseline score of 50%~ for both subreddits. The only difference is that each model makes more predictions for a particular subreddit, but the diference is marginal.
 
-**Project Organization**
-- Are modules imported correctly (using appropriate aliases)?
-- Are data imported/saved using relative paths?
-- Does the README provide a good executive summary of the project?
-- Is markdown formatting used appropriately to structure notebooks?
-- Are there an appropriate amount of comments to support the code?
-- Are files & directories organized correctly?
-- Are there unnecessary files included?
-- Do files and directories have well-structured, appropriate, consistent names?
 
-**Visualizations**
-- Are sufficient visualizations provided?
-- Do plots accurately demonstrate valid relationships?
-- Are plots labeled properly?
-- Are plots interpreted appropriately?
-- Are plots formatted and scaled appropriately for inclusion in a notebook-based technical report?
+# Conclusion
+Here we built 2 models using 2 different transformers. We used the models logistic regression and random forest with the transformers Countvectorizer and TFIDF transformers. In out findings we found consistent recall scores within the 60% ranges. Our models were pretty consistent with our classifications and changing the model or transformer had marginal differences in the models performance. 
 
-**Python Syntax and Control Flow**
-- Is care taken to write human readable code?
-- Is the code syntactically correct (no runtime errors)?
-- Does the code generate desired results (logically correct)?
-- Does the code follows general best practices and style guidelines?
-- Are Pandas functions used appropriately?
-- Are `sklearn` and `NLTK` methods used appropriately?
+Even with modifying the n_gram ranges of our transformers, the best parameter seemed to be 1 to 2 word grams. According to our EDA process, the most popular topics within these subreddits are too common so there will be some misclassification. Our model only does slightly better than our baseline score of 50% Askwomen and 49% Askmen. Because of the small difference in performance these models are not usable for research purposes. These subreddits may be too similar and we are unable to get more accuracy at this time.
 
-**Presentation**
-- Is the problem statement clearly presented?
-- Does a strong narrative run through the presentation building toward a final conclusion?
-- Are the conclusions/recommendations clearly stated?
-- Is the level of technicality appropriate for the intended audience?
-- Is the student substantially over or under time?
-- Does the student appropriately pace their presentation?
-- Does the student deliver their message with clarity and volume?
-- Are appropriate visualizations generated for the intended audience?
-- Are visualizations necessary and useful for supporting conclusions/explaining findings?
+# Recommendations
 
+With our current models we cannot accurately predict which subreddit a post belongs too. For future revisions, one thing we can do is removed the top common words used in each subreddits to better differentiate them.
+
+Experiment with a model that has no post that have been removed, this can potentially be more representative of the respective subreddits.  
+
+Another model we can build is a model to automatically identify post that should be removed. Because about 60% of our initial data was been removed we can use that as training data to build a model. We can do this by identifying what key terms in removed titles, and hopefully predict the probability of being classified as a removed post.
+
+# Limitations
+
+1) Too many removed post, almost half of our post were removed, so those post were potentially not representative of the subreddit.
+
+2) The subreddits were too similar, when looking at the distribution of some of the features we fond most of them to have similar distributions.
+
+3) The subreddits are question based, so there is little room for distinguishing features.
 
 ---
-
-### Why did we choose this project for you?
-This project covers three of the biggest concepts we cover in the class: Classification Modeling, Natural Language Processing and Data Wrangling/Acquisition.
-
-Part 1 of the project focuses on **Data wrangling/gathering/acquisition**. This is a very important skill as not all the data you will need will be in clean CSVs or a single table in SQL.  There is a good chance that wherever you land you will have to gather some data from some unstructured/semi-structured sources; when possible, requesting information from an API, but sometimes scraping it because they don't have an API (or it's terribly documented).
-
-Part 2 of the project focuses on **Natural Language Processing** and converting standard text data (like Titles and Comments) into a format that allows us to analyze it and use it in modeling.
-
-Part 3 of the project focuses on **Classification Modeling**.  Given that project 2 was a regression focused problem, we needed to give you a classification focused problem to practice the various models, means of assessment and preprocessing associated with classification.   
