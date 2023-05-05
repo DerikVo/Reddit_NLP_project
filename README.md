@@ -27,7 +27,7 @@ Within this project we will be using a Logistic regression and a random forest w
 
 
 ### Data_Collection
-For data collection we used the push shift API to pull data from the [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) sub reddits. Be low is the amount of data pulled for each subreddit on when.
+For data collection we used the push shift API to pull data from the [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) sub reddits. Below is the amount of data pulled for each subreddit.
 
 |Date(YYYY-MM-DD)|Records|
 |-----|-----|
@@ -35,6 +35,7 @@ For data collection we used the push shift API to pull data from the [r/AskWomen
 |2023-04-30|1997|
 |2023-05-04|1996|
 |2023-05-04|1998|
+
 
 |subreddit |iteration 1 | iteration 2| Iteration 3|Iteration 4|
 |-----|-----|------|-------|------|
@@ -117,7 +118,7 @@ Each of our models had similar results according to our confusion matrix scores.
 
 
 ## Conclusion
-Here we built 2 models using 2 different transformers. We used the models logistic regression and random forest with the transformers Countvectorizer and TFIDF transformers. In out findings we found consistent recall scores within the 60% ranges. Our models were pretty consistent with our classifications and changing the model or transformer had marginal differences in the models performance. 
+Here we built 2 models using 2 different transformers. We used the models logistic regression and random forest with the transformers Countvectorizer and TFIDF transformers. In out findings we found consistent recall scores within the 60% ranges. Our models were pretty consistent with our classifications and changing the model or transformer had marginal differences in the models performance. This means that our models can classify most titles, but there is some unknown characteristics shared between the subreddits that we have not identified. That would explain the similar scores between our models.  
 
 Even with modifying the n_gram ranges of our transformers, the best parameter seemed to be 1 to 2 word grams. According to our EDA process, the most popular topics within these subreddits are too common so there will be some misclassification. Our model only does slightly better than our baseline score of 50% Askwomen and 49% Askmen. Because of the small difference in performance these models are not usable for research purposes. These subreddits may be too similar and we are unable to get more accuracy at this time.
 
