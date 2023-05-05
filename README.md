@@ -2,15 +2,13 @@
 Derk Vo
 
 ## Table of contents
-[Problem statement](#Problem statement)
+[Problem statement](#Problem_statement)
 
-[Data Collection](#Data Collection)
+[Data Collection](#Data_Collection)
 
-[Data Dictionary](#Data Dictionary)
+[Data Dictionary](#Data_Dictionary)
 
-[Executive summary](#Executive summary)
-
-[Problem statement](#Problem statement)
+[Executive summary](#Executive_summary)
 
 [Conclusion](#Conclusion)
 
@@ -19,7 +17,7 @@ Derk Vo
 [Limitations](#Limitations)
 
 
-## Problem statement
+## Problem_statement
 
 The subreddits [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) are two very popular subreddits. These subreddits offer a place for individuals to ask questions and share experiences with one another. The goal of this project is to be able to accurately classify what characteristics can identify which subreddit a post belongs to based on its title. This can hopefully be used by gender, social, or other researchers to identify trends or patterns.
 
@@ -28,7 +26,7 @@ If we are successful then the information can be used to identify characteristic
 Within this project we will be using a Logistic regression and a random forest with a countvectorizer and TfidfVectorizer transformer to process and model our data.
 
 
-### Data Collection
+### Data_Collection
 For data collection we used the push shift API to pull data from the [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) sub reddits. Be low is the amount of data pulled for each subreddit on when.
 
 |Date(YYYY-MM-DD)|Records|
@@ -43,7 +41,7 @@ For data collection we used the push shift API to pull data from the [r/AskWomen
 |Ask men| 999| 998| 998 |1000|
 |Ask Women| 996|999|998|998|
 
-### Data Dictionary
+### Data_Dictionary
 The follow is a data dictionary for the [clean combined subredit data](./Data/02_sub_reddit_data_clean.csv)
 |Feature |Type | Description|
 |-----|-----|------|
@@ -65,7 +63,7 @@ In order to gather enough data for modeling, you will likely need to use a very 
 
 ---
 
-## Executive summary
+## Executive_summary
 
 ### Objective:
 
