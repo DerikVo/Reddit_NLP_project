@@ -1,30 +1,42 @@
 # Project 3: Web APIs & NLP
 Derk Vo
 
+## Table of contents
+[Problem statement](##Problem_statement)
+[Data Collection](##Data_Collection)
+[Data Dictionary](##Data_Dictionary)
+[Executive summary](##Executive_summary)
+[Problem statement](##Problem_statement)
+[Conclusion](##Conclusion  )
+[Recommendations](##Recommendations)
+[Limitations](##Limitations)
+
+
 ## Problem statement
 
 The subreddits [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) are two very popular subreddits. These subreddits offer a place for individuals to ask questions and share experiences with one another. The goal of this project is to be able to accurately classify what characteristics can identify which subreddit a post belongs to based on its title. This can hopefully be used by gender, social, or other researchers to identify trends or patterns.
 
-If we are successful then the information can be used to identify characteristics of each subreddit to better understand the intricacies of social interactions between men and women. If we are able to build an accurate model then we will them proceed with analyzing comments within each post.
+If we are successful then the information can be used to identify characteristics of each subreddit to better understand the intricacies of social interactions between men and women. If we are able to build an accurate model then we will them proceed with analyzing comments within each post. Then when we build a satisfactory model, we can use sentiment analysis to label these titles and comments for research purposes. With this we can help researchers in the social sciences better understand how social media and community effects individuals and communities.
 
 Within this project we will be using a Logistic regression and a random forest with a countvectorizer and TfidfVectorizer transformer to process and model our data.
 
 
-## Data Collection
+### Data Collection
 For data collection we used the push shift API to pull data from the [r/AskWomen](https://www.reddit.com/r/AskWomen/) and [r/Askmen](https://www.reddit.com/r/Askmen/) sub reddits. Be low is the amount of data pulled for each subreddit on when.
 
 |Date(YYYY-MM-DD)|Records|
 |-----|-----|
-|2023-04-24|3992|
-|2023-04-30|2001|
+|2023-04-24|1995|
+|2023-04-30|1997|
+|2023-05-04|1996|
 |2023-05-04|1998|
 
-|subreddit |iteration 1 | iteration 2| Iteration 3|
-|-----|-----|------|-------|
-|Ask men| 1995| 2997| 1000 |
-|Ask Women| 1997|2995|998|
+|subreddit |iteration 1 | iteration 2| Iteration 3|Iteration 4|
+|-----|-----|------|-------|------|
+|Ask men| 999| 998| 998 |1000|
+|Ask Women| 996|999|998|998|
 
-### Data Dictioanry
+### Data Dictionary
 The follow is a data dictionary for the [clean combined subredit data](./Data/02_sub_reddit_data_clean.csv)
 |Feature |Type | Description|
 |-----|-----|------|
@@ -62,7 +74,7 @@ We will evaluate these models by measuring the confusion matrix matrix of recall
         1) ) First iteration had too many removed post (70% of 2000~ of post)
         2) ) Second iteration brought the proportion down to about 50%~
         3) ) Subreddits were too similar, so we pulled more data, but had no improvement
-2) [Cleaned, explored, and created features initial data](./Data/Code/02_data_cleaning.ipynb)
+2) [Cleaned, explored, and created features initial data](./Code/02_data_cleaning.ipynb)
     1) ) Findings
         1) ) Found a large amount of post in the first iteration had been removed about 70% of 2000~ post
         2) ) returned to the [data collection notebook](./Code/01_data_collecting.ipynb) to get more data
@@ -97,20 +109,19 @@ We will evaluate these models by measuring the confusion matrix matrix of recall
 Each of our models had similar results according to our confusion matrix scores. Our models are only slightly better than our baseline score of 50%~ for both subreddits. The only difference is that each model makes more predictions for a particular subreddit, but the diference is marginal.
 
 
-# Conclusion
+## Conclusion
 Here we built 2 models using 2 different transformers. We used the models logistic regression and random forest with the transformers Countvectorizer and TFIDF transformers. In out findings we found consistent recall scores within the 60% ranges. Our models were pretty consistent with our classifications and changing the model or transformer had marginal differences in the models performance. 
 
 Even with modifying the n_gram ranges of our transformers, the best parameter seemed to be 1 to 2 word grams. According to our EDA process, the most popular topics within these subreddits are too common so there will be some misclassification. Our model only does slightly better than our baseline score of 50% Askwomen and 49% Askmen. Because of the small difference in performance these models are not usable for research purposes. These subreddits may be too similar and we are unable to get more accuracy at this time.
 
-# Recommendations
+## Recommendations
 
 With our current models we cannot accurately predict which subreddit a post belongs too. For future revisions, one thing we can do is removed the top common words used in each subreddits to better differentiate them.
 
-Experiment with a model that has no post that have been removed, this can potentially be more representative of the respective subreddits.  
+We can also experiment with a model that does not include removed posts, this can potentially be more representative of the respective subreddits since more people interact with these threads. Additionally, we can focus on the thread and the comments instead of starting with categorizing the thread title only. Perhaps by seeing how users interact with a post we can get a better understand of identifiable interactions.
 
-Another model we can build is a model to automatically identify post that should be removed. Because about 60% of our initial data was been removed we can use that as training data to build a model. We can do this by identifying what key terms in removed titles, and hopefully predict the probability of being classified as a removed post.
-
-# Limitations
+Another use of our data set is we can build is a model to automatically identify post that should be removed. Because about 60% of our initial data was been removed we can use that as training data to build a model. We can do this by identifying what key terms in removed titles, and hopefully predict the probability of being classified as a removed post. This can either be shared with each subreddit's moderation team or with reddit's trust and safety team to better assist their community moderators.
+## Limitations
 
 1) Too many removed post, almost half of our post were removed, so those post were potentially not representative of the subreddit.
 
